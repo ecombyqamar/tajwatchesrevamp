@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taj Watches — Time Defines Presence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0A0A0A;
+    --charcoal:#1A1A1A;
+    --charcoal-2:#141414;
+    --gold:#C9A227;
+    --gold-light:#E4C767;
+    --gold-dim:#8a6f1c;
+    --white:#FFFFFF;
+    --off-white:#F3EFE6;
+    --gray:#9c9691;
+    --gray-dim:#6b6660;
+    --line: rgba(201,162,39,0.25);
+    --radius: 2px;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--off-white);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+    width:100%;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer;}
+  .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'Jost', sans-serif;
+    font-size:11px;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--gold);}
+  h1,h2,h3,.serif{font-family:'Playfair Display', serif;}
+  h2.section-title{
+    font-size:clamp(30px,4.2vw,52px);
+    font-weight:600;
+    line-height:1.12;
+    color:var(--white);
+    margin-top:14px;
+  }
+  .section-head{margin-bottom:56px; max-width:640px;}
+  .section-head p.desc{margin-top:16px; color:var(--gray); font-size:15px; line-height:1.7; max-width:480px;}
+  section{position:relative; padding:100px 0;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:16px 34px;
+    font-size:12px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    font-weight:600;
+    border-radius:var(--radius);
+    transition:all .35s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-gold{background:var(--gold); color:var(--black); border:1px solid var(--gold);}
+  .btn-gold:hover{background:var(--gold-light); border-color:var(--gold-light); transform:translateY(-2px);}
+  .btn-ghost{border:1px solid rgba(255,255,255,0.35); color:var(--white); background:transparent;}
+  .btn-ghost:hover{border-color:var(--gold); color:var(--gold); transform:translateY(-2px);}
+
+  /* ---------- ARCH MOTIF (signature element) ---------- */
+  .arch-divider{
+    display:flex; align-items:center; justify-content:center;
+    gap:14px; margin:0 auto; padding:46px 0;
+    color:var(--gold);
+  }
+  .arch-divider .line{width:60px; height:1px; background:linear-gradient(90deg, transparent, var(--gold));}
+  .arch-divider .line.r{background:linear-gradient(90deg, var(--gold), transparent);}
+  .arch-icon{width:22px; height:22px;}
+
+  /* ---------- ANNOUNCEMENT BAR ---------- */
+  .announce{
+    background:var(--black);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    white-space:nowrap;
+    padding:9px 0;
+  }
+  .announce-track{
+    display:inline-flex;
+    animation: marquee 26s linear infinite;
+  }
+  .announce-track span{
+    padding:0 28px;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+  }
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,10,10,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:82px;
+  }
+  .logo{display:flex; align-items:center; gap:12px;}
+  .logo svg{width:34px; height:34px;}
+  .logo-text{font-family:'Playfair Display', serif; font-size:22px; letter-spacing:0.06em; color:var(--white);}
+  .logo-text b{color:var(--gold); font-weight:700;}
+  .nav-links{display:flex; align-items:center; gap:40px;}
+  .nav-links a{
+    font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--off-white); font-weight:500; position:relative; padding:6px 0;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--gold);
+    transition:width .3s var(--ease);
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-icons{display:flex; align-items:center; gap:22px;}
+  .nav-icons button{background:none; border:none; color:var(--off-white); display:flex;}
+  .nav-icons button:hover{color:var(--gold);}
+  .nav-icons svg{width:19px; height:19px;}
+  .hamburger{display:none; flex-direction:column; gap:5px; background:none; border:none;}
+  .hamburger span{width:24px; height:1.5px; background:var(--white);}
+  .mobile-menu{
+    display:none; flex-direction:column; gap:0;
+    background:var(--charcoal); border-top:1px solid var(--line);
+  }
+  .mobile-menu a{
+    padding:16px 32px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase;
+    border-bottom:1px solid rgba(255,255,255,0.06); color:var(--off-white);
+  }
+  .mobile-menu.open{display:flex;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex; align-items:center;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(100deg, rgba(10,10,10,0.96) 10%, rgba(10,10,10,0.72) 45%, rgba(10,10,10,0.35) 100%),
+      url('https://images.unsplash.com/photo-1704428303280-84768603d539?fm=jpg&q=80&w=2200&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center 30%;
+  }
+  .hero-content{position:relative; z-index:2; padding:150px 0 90px;}
+  .hero-content .eyebrow{margin-bottom:26px;}
+  .hero h1{
+    font-size:clamp(42px,7.2vw,92px);
+    font-weight:700;
+    line-height:1.04;
+    color:var(--white);
+    max-width:820px;
+  }
+  .hero h1 em{font-style:italic; color:var(--gold-light); font-weight:500;}
+  .hero .sub{
+    margin-top:26px;
+    font-size:17px; line-height:1.75; color:var(--gray);
+    max-width:480px; font-weight:300;
+  }
+  .hero-trust{
+    display:flex; flex-wrap:wrap; gap:28px;
+    margin-top:44px; padding-top:34px;
+    border-top:1px solid rgba(255,255,255,0.12);
+    max-width:640px;
+  }
+  .hero-trust-item{display:flex; align-items:center; gap:10px; font-size:11.5px; letter-spacing:0.06em; color:var(--off-white); text-transform:uppercase; font-weight:500;}
+  .hero-trust-item svg{width:16px; height:16px; color:var(--gold); flex-shrink:0;}
+  .hero-cta{display:flex; gap:18px; margin-top:44px; flex-wrap:wrap;}
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:10px; z-index:2;
+    color:var(--gray);
+  }
+  .scroll-cue .stick{width:1px; height:34px; background:linear-gradient(var(--gold), transparent); animation:pulse-down 1.8s infinite;}
+  @keyframes pulse-down{ 0%{opacity:0.2;} 50%{opacity:1;} 100%{opacity:0.2;} }
+
+  /* ---------- TRUST MARQUEE STRIP ---------- */
+  .strip{
+    background:var(--gold); color:var(--black);
+    overflow:hidden; white-space:nowrap; padding:13px 0;
+  }
+  .strip-track{display:inline-flex; animation:marquee 30s linear infinite;}
+  .strip-track span{padding:0 26px; font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase;}
+
+  /* ---------- PRODUCT GRID ---------- */
+  .product-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:28px;
+  }
+  .product-card{
+    background:var(--charcoal-2);
+    border:1px solid rgba(255,255,255,0.06);
+    display:flex; flex-direction:column;
+    opacity:0; transform:translateY(24px);
+    transition:opacity .7s var(--ease), transform .7s var(--ease);
+  }
+  .product-card.in{opacity:1; transform:translateY(0);}
+  .product-media{
+    position:relative; aspect-ratio:1/1; overflow:hidden;
+    background:#0e0e0e;
+  }
+  .product-media img{
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .7s var(--ease);
+  }
+  .product-card:hover .product-media img{transform:scale(1.09);}
+  .badge-tag{
+    position:absolute; top:12px; left:12px; z-index:2;
+    background:var(--gold); color:var(--black);
+    font-size:9.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    padding:5px 10px;
+  }
+  .wishlist-btn{
+    position:absolute; top:10px; right:10px; z-index:2;
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(10,10,10,0.55); border:1px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--white); backdrop-filter:blur(4px);
+    transition:all .3s var(--ease);
+  }
+  .wishlist-btn svg{width:16px; height:16px;}
+  .wishlist-btn.active{color:var(--gold); border-color:var(--gold);}
+  .wishlist-btn.active svg{fill:var(--gold);}
+  .quickview-btn{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    background:rgba(10,10,10,0.86); color:var(--white);
+    text-align:center; padding:13px; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase;
+    font-weight:600; border:none; width:100%;
+    transform:translateY(100%);
+    transition:transform .4s var(--ease);
+  }
+  .product-card:hover .quickview-btn{transform:translateY(0);}
+  .product-info{padding:20px 20px 22px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .product-info .name{
+    font-family:'Playfair Display', serif; font-size:16px; font-weight:600; color:var(--white); line-height:1.35;
+  }
+  .product-info .spec{font-size:11px; color:var(--gray-dim); letter-spacing:0.04em;}
+  .rating{display:flex; align-items:center; gap:6px;}
+  .rating svg{width:12px; height:12px; color:var(--gold);}
+  .rating span{font-size:11px; color:var(--gray);}
+  .price-row{display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:10px;}
+  .price{font-family:'Playfair Display', serif; font-size:19px; color:var(--gold-light); font-weight:600;}
+  .add-cart{
+    border:1px solid rgba(255,255,255,0.25); background:none; color:var(--white);
+    font-size:10px; letter-spacing:0.12em; text-transform:uppercase; padding:10px 16px;
+    transition:all .3s var(--ease); font-weight:500;
+  }
+  .add-cart:hover{border-color:var(--gold); color:var(--gold);}
+
+  .view-all-row{display:flex; justify-content:center; margin-top:56px;}
+
+  /* ---------- WHY CHOOSE ---------- */
+  .why-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .why-item{
+    background:var(--black); padding:44px 30px; text-align:left;
+  }
+  .why-item svg{width:30px; height:30px; color:var(--gold); margin-bottom:22px;}
+  .why-item h3{font-family:'Playfair Display', serif; font-size:19px; color:var(--white); font-weight:600; margin-bottom:10px;}
+  .why-item p{font-size:13.5px; color:var(--gray); line-height:1.7;}
+
+  /* ---------- LIFESTYLE BANNER ---------- */
+  .lifestyle{
+    position:relative; min-height:560px; display:flex; align-items:center;
+    background-image:
+      linear-gradient(rgba(10,10,10,0.55), rgba(10,10,10,0.82)),
+      url('https://images.unsplash.com/photo-1702865053958-71ec751c4118?fm=jpg&q=80&w=2200&auto=format&fit=crop');
+    background-size:cover; background-position:center;
+    background-attachment:fixed;
+  }
+  .lifestyle-inner{max-width:660px; text-align:center; margin:0 auto; padding:0 32px;}
+  .lifestyle blockquote{
+    font-family:'Playfair Display', serif; font-style:italic; font-weight:500;
+    font-size:clamp(24px,3.6vw,40px); color:var(--white); line-height:1.35;
+  }
+  .lifestyle blockquote span{color:var(--gold-light);}
+  .lifestyle .attribution{margin-top:24px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gray);}
+  .lifestyle .btn{margin-top:38px;}
+
+  /* ---------- BEST SELLERS (horizontal scroll) ---------- */
+  .scroll-row{
+    display:flex; gap:24px; overflow-x:auto; padding:8px 4px 24px;
+    scroll-snap-type:x mandatory;
+    -ms-overflow-style:none; scrollbar-width:none;
+  }
+  .scroll-row::-webkit-scrollbar{display:none;}
+  .scroll-row .product-card{min-width:270px; scroll-snap-align:start;}
+
+  /* ---------- CRAFTSMANSHIP ---------- */
+  .craft{background:var(--charcoal); }
+  .craft-flex{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;}
+  .craft-visual{
+    position:relative; aspect-ratio:4/5; overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .craft-visual img{width:100%; height:100%; object-fit:cover;}
+  .craft-visual::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(160deg, rgba(201,162,39,0.12), transparent 60%);
+  }
+  .craft-list{display:flex; flex-direction:column; gap:30px; margin-top:38px;}
+  .craft-row{display:flex; gap:20px; align-items:flex-start;}
+  .craft-row svg{width:26px; height:26px; color:var(--gold); flex-shrink:0; margin-top:4px;}
+  .craft-row h3{font-family:'Playfair Display', serif; font-size:18px; color:var(--white); font-weight:600; margin-bottom:6px;}
+  .craft-row p{font-size:13.5px; color:var(--gray); line-height:1.7; max-width:420px;}
+
+  /* ---------- REVIEWS ---------- */
+  .review-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  .review-card{
+    background:var(--charcoal-2); border:1px solid rgba(255,255,255,0.06);
+    padding:34px 30px;
+  }
+  .review-card .rating{margin-bottom:18px;}
+  .review-card .rating svg{width:14px; height:14px;}
+  .review-card p.quote{font-size:14.5px; line-height:1.8; color:var(--off-white); font-style:italic; font-family:'Playfair Display', serif;}
+  .review-meta{display:flex; align-items:center; gap:12px; margin-top:24px;}
+  .review-avatar{
+    width:38px; height:38px; border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--gold-dim));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; color:var(--black); font-size:14px;
+  }
+  .review-meta .who b{display:block; font-size:13px; color:var(--white); font-weight:600;}
+  .review-meta .who span{font-size:11.5px; color:var(--gray-dim);}
+
+  /* ---------- TRUST GUARANTEES ---------- */
+  .guarantee-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.06);
+  }
+  .guarantee-item{
+    background:var(--black); padding:34px 24px; text-align:center;
+  }
+  .guarantee-item svg{width:26px; height:26px; color:var(--gold); margin-bottom:14px;}
+  .guarantee-item p{font-size:12px; letter-spacing:0.04em; color:var(--off-white); font-weight:500; line-height:1.5;}
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap{max-width:780px; margin:0 auto;}
+  .faq-item{border-bottom:1px solid rgba(255,255,255,0.1);}
+  .faq-q{
+    width:100%; background:none; border:none; color:var(--white);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 4px; text-align:left; font-family:'Playfair Display', serif;
+    font-size:17px; font-weight:500;
+  }
+  .faq-q .plus{
+    width:20px; height:20px; position:relative; flex-shrink:0; margin-left:20px;
+  }
+  .faq-q .plus::before, .faq-q .plus::after{
+    content:''; position:absolute; background:var(--gold); transition:transform .3s var(--ease);
+  }
+  .faq-q .plus::before{top:50%; left:0; width:100%; height:1.5px; transform:translateY(-50%);}
+  .faq-q .plus::after{left:50%; top:0; height:100%; width:1.5px; transform:translateX(-50%);}
+  .faq-item.open .plus::after{transform:translateX(-50%) rotate(90deg); opacity:0;}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .4s var(--ease);}
+  .faq-a p{padding:0 4px 26px; font-size:14px; line-height:1.8; color:var(--gray); max-width:640px;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{
+    text-align:center;
+    background:
+      radial-gradient(ellipse at center, rgba(201,162,39,0.14), transparent 60%),
+      var(--black);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:130px 32px;
+  }
+  .final-cta .eyebrow{justify-content:center;}
+  .final-cta h2{margin:20px auto 20px; max-width:640px;}
+  .final-cta p{color:var(--gray); max-width:480px; margin:0 auto 40px; font-size:15px; line-height:1.7;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--charcoal-2); padding:80px 0 0;}
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:50px;
+    padding-bottom:60px; border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand p{font-size:13.5px; color:var(--gray); line-height:1.8; margin-top:18px; max-width:280px;}
+  .footer-social{display:flex; gap:14px; margin-top:26px;}
+  .footer-social a{
+    width:36px; height:36px; border:1px solid rgba(255,255,255,0.15); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; color:var(--off-white);
+    transition:all .3s var(--ease);
+  }
+  .footer-social a:hover{border-color:var(--gold); color:var(--gold);}
+  .footer-social svg{width:15px; height:15px;}
+  .footer-col h4{font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--white); margin-bottom:22px; font-weight:600;}
+  .footer-col a, .footer-col p{display:block; font-size:13.5px; color:var(--gray); margin-bottom:13px; line-height:1.6;}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-bottom{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    padding:26px 0; font-size:12px; color:var(--gray-dim);
+  }
+  .footer-bottom .pay-badges{display:flex; gap:10px; flex-wrap:wrap;}
+  .footer-bottom .pay-badges span{
+    border:1px solid rgba(255,255,255,0.15); padding:5px 12px; font-size:10.5px; letter-spacing:0.05em; color:var(--gray);
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- QUICK VIEW MODAL ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(10,10,10,0.86); backdrop-filter:blur(6px);
+    z-index:1000; display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--charcoal-2); border:1px solid var(--line);
+    max-width:820px; width:100%; max-height:88vh; overflow:auto;
+    display:grid; grid-template-columns:1fr 1fr;
+  }
+  .modal-media{aspect-ratio:1/1; overflow:hidden; background:#0e0e0e;}
+  .modal-media img{width:100%; height:100%; object-fit:cover;}
+  .modal-info{padding:40px; position:relative; display:flex; flex-direction:column;}
+  .modal-close{
+    position:absolute; top:18px; right:18px; background:none; border:none; color:var(--gray);
+    width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+  }
+  .modal-close:hover{color:var(--gold);}
+  .modal-info .eyebrow{margin-bottom:16px;}
+  .modal-info h3{font-family:'Playfair Display', serif; font-size:24px; color:var(--white); font-weight:600; line-height:1.3;}
+  .modal-info .price{margin-top:16px; font-size:22px;}
+  .modal-info .desc{margin-top:16px; font-size:13.5px; color:var(--gray); line-height:1.8;}
+  .modal-info .btn{margin-top:28px; width:100%;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1024px){
+    .product-grid{grid-template-columns:repeat(3,1fr);}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .guarantee-row{grid-template-columns:repeat(2,1fr);}
+    .craft-flex{grid-template-columns:1fr; gap:44px;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+    .review-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 20px;}
+    section{padding:70px 0;}
+    .product-grid{grid-template-columns:repeat(2,1fr); gap:16px;}
+    .why-grid{grid-template-columns:1fr;}
+    .guarantee-row{grid-template-columns:1fr 1fr;}
+    .hero-content{padding:120px 0 70px;}
+    .hero-cta{flex-direction:column; align-items:stretch;}
+    .hero-cta .btn{width:100%;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:34px;}
+    .modal-box{grid-template-columns:1fr;}
+    .modal-media{aspect-ratio:16/10;}
+    .section-head{margin-bottom:38px;}
+    .lifestyle{background-attachment:scroll;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce">
+  <div class="announce-track">
+    <span>✦ INSPECT YOUR PARCEL BEFORE PAYMENT — CASH ON DELIVERY NATIONWIDE</span>
+    <span>✦ FREE SHIPPING ON PREPAID ORDERS ABOVE RS.4,000</span>
+    <span>✦ PREMIUM STAINLESS STEEL CONSTRUCTION</span>
+    <span>✦ INSPECT YOUR PARCEL BEFORE PAYMENT — CASH ON DELIVERY NATIONWIDE</span>
+    <span>✦ FREE SHIPPING ON PREPAID ORDERS ABOVE RS.4,000</span>
+    <span>✦ PREMIUM STAINLESS STEEL CONSTRUCTION</span>
+  </div>
+</div>
+
+<!-- HEADER / NAV -->
+<header>
+  <nav class="wrap">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 32V20C8 12.268 13.373 6 20 6C26.627 6 32 12.268 32 20V32" stroke="#C9A227" stroke-width="1.6"/>
+        <path d="M4 32H36" stroke="#C9A227" stroke-width="1.6"/>
+        <circle cx="20" cy="18" r="3" stroke="#C9A227" stroke-width="1.3"/>
+      </svg>
+      <span class="logo-text"><b>TAJ</b> WATCHES</span>
+    </a>
+    <div class="nav-links">
+      <a href="#collection">Collection</a>
+      <a href="#bestsellers">Best Sellers</a>
+      <a href="#craftsmanship">Craftsmanship</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-icons">
+      <button aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+      <button aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.8 4c2-.3 3.8.7 4.9 2.3C11.8 4.7 13.6 3.7 15.6 4c3.6.5 5.3 4 3.8 7.7C16.9 16.4 12 21 12 21z"/></svg>
+      </button>
+      <button aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
+      </button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#collection">Collection</a>
+    <a href="#bestsellers">Best Sellers</a>
+    <a href="#craftsmanship">Craftsmanship</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-content">
+    <span class="eyebrow">Taj Watches — Timepieces For Men</span>
+    <h1>Time Defines<br><em>Presence.</em></h1>
+    <p class="sub">Precision stainless-steel timepieces engineered for the man who commands the room before he speaks. Every watch, a quiet statement of arrival.</p>
+
+    <div class="hero-cta">
+      <a href="#collection" class="btn btn-gold">Shop Collection</a>
+      <a href="#bestsellers" class="btn btn-ghost">Explore Best Sellers</a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/></svg>Premium Quality</div>
+      <div class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>Stainless Steel Build</div>
+      <div class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h13M9 6l6 6-6 6"/></svg>Cash On Delivery</div>
+      <div class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="17.5" cy="18.5" r="1.5"/></svg>Nationwide Shipping</div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;">Scroll</span><div class="stick"></div></div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <span>Premium Quality</span><span>✦</span><span>Stainless Steel Construction</span><span>✦</span><span>Cash On Delivery</span><span>✦</span><span>Nationwide Shipping</span><span>✦</span>
+    <span>Premium Quality</span><span>✦</span><span>Stainless Steel Construction</span><span>✦</span><span>Cash On Delivery</span><span>✦</span><span>Nationwide Shipping</span><span>✦</span>
+  </div>
+</div>
+
+<!-- FEATURED COLLECTION -->
+<section id="collection">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Collection</span>
+      <h2 class="section-title">Crafted For Command</h2>
+      <p class="desc">Every Taj timepiece is built on a stainless-steel foundation, finished by hand and dressed for the man who values presence over noise.</p>
+    </div>
+    <div class="product-grid" id="featuredGrid"></div>
+    <div class="view-all-row reveal">
+      <a href="https://tajwatches.shop/collections/all" target="_blank" rel="noopener" class="btn btn-ghost">View Full Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="arch-divider reveal">
+      <div class="line"></div>
+      <svg class="arch-icon" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.4"><path d="M4 20V11C4 6.6 7.6 3 12 3s8 3.6 8 8v9"/><path d="M2 20h20"/></svg>
+      <div class="line r"></div>
+    </div>
+    <div class="section-head reveal" style="margin:0 auto 56px; text-align:center;">
+      <span class="eyebrow" style="justify-content:center;">Why Taj</span>
+      <h2 class="section-title">Why Choose Taj Watches</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/></svg>
+        <h3>Premium Quality</h3>
+        <p>Every dial is inspected before it ships — no compromises on finish or function.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <h3>Stainless Steel Build</h3>
+        <p>Durable stainless-steel cases and straps engineered to hold their shine for years.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h13M9 6l6 6-6 6"/></svg>
+        <h3>Cash On Delivery</h3>
+        <p>Open your parcel, inspect your watch, then pay. Shop with confidence, every time.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="17.5" cy="18.5" r="1.5"/></svg>
+        <h3>Nationwide Shipping</h3>
+        <p>Delivered to every corner of Pakistan, tracked from our door to yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE BANNER -->
+<section class="lifestyle">
+  <div class="lifestyle-inner reveal">
+    <blockquote>A timepiece is not an accessory. <span>It is a statement of arrival.</span></blockquote>
+    <p class="attribution">The Taj Standard</p>
+    <a href="#craftsmanship" class="btn btn-gold">Explore The Craft</a>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section id="bestsellers">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Most Loved</span>
+      <h2 class="section-title">Best Selling Watches</h2>
+      <p class="desc">The dials our customers keep coming back for — bold gold finishes and diamond-set bezels, in limited stock.</p>
+    </div>
+    <div class="scroll-row" id="bestsellerRow"></div>
+  </div>
+</section>
+
+<!-- CRAFTSMANSHIP -->
+<section class="craft" id="craftsmanship">
+  <div class="wrap">
+    <div class="craft-flex">
+      <div class="craft-visual reveal">
+        <img src="https://images.unsplash.com/photo-1704428303280-84768603d539?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Close-up of a Taj wristwatch on the wrist">
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Built To Last</span>
+        <h2 class="section-title">The Taj Standard</h2>
+        <div class="craft-list">
+          <div class="craft-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="12" r="4"/></svg>
+            <div><h3>Stainless Steel Case</h3><p>A solid stainless-steel body resists scratches and daily wear, keeping its shine well beyond the first year.</p></div>
+          </div>
+          <div class="craft-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <div><h3>Precision Movement</h3><p>Reliable quartz movement keeps time accurate, so you never have to think about the watch on your wrist.</p></div>
+          </div>
+          <div class="craft-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c3 4 6 6.5 6 10.5A6 6 0 016 13.5C6 9.5 9 7 12 3z"/></svg>
+            <div><h3>Everyday Water Resistance</h3><p>Splash and sweat resistant construction, built for the boardroom, the commute, and everywhere between.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin:0 auto 56px; text-align:center;">
+      <span class="eyebrow" style="justify-content:center;">Customer Reviews</span>
+      <h2 class="section-title">Worn Across Pakistan</h2>
+    </div>
+    <div class="review-grid reveal">
+      <div class="review-card">
+        <div class="rating">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+        </div>
+        <p class="quote">"The gold dial looks far more expensive than what I paid. Packaging felt premium and delivery was quick."</p>
+        <div class="review-meta">
+          <div class="review-avatar">A</div>
+          <div class="who"><b>Ahmed R.</b><span>Lahore</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="rating">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+        </div>
+        <p class="quote">"Cash on delivery made it an easy decision. Checked the watch at my door, paid, and I've worn it daily since."</p>
+        <div class="review-meta">
+          <div class="review-avatar">B</div>
+          <div class="who"><b>Bilal K.</b><span>Karachi</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="rating">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+        </div>
+        <p class="quote">"Bought it as a gift for my father. He wears it every day now — feels sturdy and looks genuinely premium."</p>
+        <div class="review-meta">
+          <div class="review-avatar">S</div>
+          <div class="who"><b>Sana M.</b><span>Islamabad</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST & GUARANTEES -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="guarantee-row reveal">
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        <p>Secure Checkout</p>
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/><path d="M9 12l2 2 4-4"/></svg>
+        <p>Easy Exchange</p>
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;"><path d="M3 12h13M9 6l6 6-6 6"/></svg>
+        <p>Cash On Delivery</p>
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="17.5" cy="18.5" r="1.5"/></svg>
+        <p>Nationwide Shipping</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin:0 auto 40px; text-align:center;">
+      <span class="eyebrow" style="justify-content:center;">Questions</span>
+      <h2 class="section-title">Frequently Asked</h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <div class="faq-item open">
+        <button class="faq-q">Do you offer Cash on Delivery?<span class="plus"></span></button>
+        <div class="faq-a" style="max-height:120px;"><p>Yes. You can inspect your watch when it arrives and pay the courier directly — available nationwide.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long does shipping take?<span class="plus"></span></button>
+        <div class="faq-a"><p>Most orders are delivered within 3–5 business days across Pakistan, depending on your city.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What is your return and exchange policy?<span class="plus"></span></button>
+        <div class="faq-a"><p>If your watch arrives damaged or faulty, we offer a straightforward exchange — just reach out to our support team.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are the watches water resistant?<span class="plus"></span></button>
+        <div class="faq-a"><p>Our watches are built to handle everyday splashes and sweat, but are not designed for swimming or submersion.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What materials are used in construction?<span class="plus"></span></button>
+        <div class="faq-a"><p>Every watch features a stainless-steel case and band with a reliable quartz movement for accurate timekeeping.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta reveal">
+  <span class="eyebrow">Taj Watches</span>
+  <h2 class="section-title">Own The Moment.</h2>
+  <p>A timepiece from Taj is more than an accessory — it's the first thing people notice, and the last thing they forget.</p>
+  <a href="https://tajwatches.shop/collections/all" target="_blank" rel="noopener" class="btn btn-gold">Shop The Full Collection</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 32V20C8 12.268 13.373 6 20 6C26.627 6 32 12.268 32 20V32" stroke="#C9A227" stroke-width="1.6"/>
+            <path d="M4 32H36" stroke="#C9A227" stroke-width="1.6"/>
+            <circle cx="20" cy="18" r="3" stroke="#C9A227" stroke-width="1.3"/>
+          </svg>
+          <span class="logo-text"><b>TAJ</b> WATCHES</span>
+        </a>
+        <p>Premium stainless-steel timepieces for the modern man. Designed for presence, built for everyday wear.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 8h2V5h-2a4 4 0 00-4 4v2H9v3h2v6h3v-6h2.5l.5-3H14V9a1 1 0 011-1z"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l1.6-4A8 8 0 1112 20a8 8 0 01-5-1.7L3 21z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#collection">All Watches</a>
+        <a href="#bestsellers">Best Sellers</a>
+        <a href="#collection">New Arrivals</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="https://tajwatches.shop/policies/contact-information" target="_blank" rel="noopener">Contact Us</a>
+        <a href="https://tajwatches.shop/policies/shipping-policy" target="_blank" rel="noopener">Shipping Policy</a>
+        <a href="https://tajwatches.shop/policies/refund-policy" target="_blank" rel="noopener">Refund Policy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#craftsmanship">Craftsmanship</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Taj Watches. All rights reserved.</span>
+      <div class="pay-badges">
+        <span>Cash On Delivery</span>
+        <span>Secure Checkout</span>
+        <span>Nationwide Shipping</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- QUICK VIEW MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-media"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-info">
+      <button class="modal-close" id="modalClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <span class="eyebrow">Taj Watches</span>
+      <h3 id="modalName"></h3>
+      <div class="rating" style="margin-top:14px;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>
+      </div>
+      <div class="price" id="modalPrice"></div>
+      <p class="desc">Stainless-steel case and band with precise quartz movement, complete date and time display. Everyday water resistance and premium gift-ready packaging.</p>
+      <a href="#" target="_blank" rel="noopener" class="btn btn-gold" id="modalLink">View Product</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---- Real product data sourced from tajwatches.shop/collections/all ----
+  const PRODUCTS = [
+    {name:"Luxury Black Chain Black Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,000", img:"https://tajwatches.shop/cdn/shop/files/Blackcahinblackdial.png?v=1780904639&width=800", url:"https://tajwatches.shop/products/luxury-black-chain-black-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Full Silver White Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2025-10-11at6.25.37AM_4.jpg?v=1780899825&width=800", url:"https://tajwatches.shop/products/luxury-full-silver-white-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Full Silver Black Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2025-10-21at11.05.50PM.jpg?v=1780900050&width=800", url:"https://tajwatches.shop/products/luxury-full-silver-black-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Full Silver Green Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2025-11-14at7.41.47PM.jpg?v=1780900230&width=800", url:"https://tajwatches.shop/products/luxury-full-silver-green-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Gold & Dark Green Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,100", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2025-10-11at6.25.36AM.jpg?v=1780899518&width=800", url:"https://tajwatches.shop/products/luxury-gold-dark-green-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Gold & Gold Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2025-10-11at6.25.36AM_2.jpg?v=1780899083&width=800", url:"https://tajwatches.shop/products/luxury-gold-gold-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Gold & Green Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,200", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2025-11-14at7.41.46PM.jpg?v=1780899281&width=800", url:"https://tajwatches.shop/products/luxury-gold-green-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Gold Chain Black Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 4,100", img:"https://tajwatches.shop/cdn/shop/files/IMG-20260620-WA0091.jpg?v=1782149723&width=800", url:"https://tajwatches.shop/products/luxury-gold-chain-black-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:"New"}
+  ];
+
+  const BESTSELLERS = [
+    {name:"Luxury Gold & Green Dial Diamond Men's Watch", spec:"Diamond Bezel · Stainless Steel", price:"Rs. 5,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2026-03-17at1.58.09PM.jpg?v=1781000925&width=800", url:"https://tajwatches.shop/products/luxury-gold-green-dial-diamond-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:"Best Seller"},
+    {name:"Luxury Gold & Black Dial Diamond Men's Watch", spec:"Diamond Bezel · Stainless Steel", price:"Rs. 5,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2026-03-17at1.57.55PM_2.jpg?v=1781001323&width=800", url:"https://tajwatches.shop/products/luxury-gold-black-dial-diamond-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:"Few Left"},
+    {name:"Luxury Gold & Blue Dial Diamond Men's Watch", spec:"Diamond Bezel · Stainless Steel", price:"Rs. 5,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2026-03-17at1.57.55PM.jpg?v=1781001171&width=800", url:"https://tajwatches.shop/products/luxury-gold-blue-dial-diamond-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Luxury Gold & Red Dial Diamond Men's Watch", spec:"Diamond Bezel · Stainless Steel", price:"Rs. 5,500", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2026-06-20at3.23.34PM.jpg?v=1782207699&width=800", url:"https://tajwatches.shop/products/luxury-gold-red-dial-diamond-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:"Few Left"},
+    {name:"Luxury Gold & Gold Dial Chronograph Men's Watch", spec:"Chronograph · Stainless Steel", price:"Rs. 5,200", img:"https://tajwatches.shop/cdn/shop/files/WhatsApp_Image_2026-06-20_at_3.26.12_PM.jpg?v=1782282560&width=800", url:"https://tajwatches.shop/products/luxury-gold-gold-dial-chronograph-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""},
+    {name:"Premium Monograph Heavy Weight Men's Watch", spec:"Gold Stainless Steel", price:"Rs. 6,000", img:"https://tajwatches.shop/cdn/shop/files/ChatGPTImageJun16_2026_12_18_23PM.png?v=1781601791&width=800", url:"https://tajwatches.shop/products/premium-monograph-heavy-weight-mens-watch-gold-stainless-steel", tag:"Premium"},
+    {name:"SKMEI Original Gold Chain & Black Dial Men's Watch", spec:"Stainless Steel · Date & Time Display", price:"Rs. 5,000", img:"https://tajwatches.shop/cdn/shop/files/WhatsAppImage2026-06-20at3.30.15PM.jpg?v=1782282739&width=800", url:"https://tajwatches.shop/products/skmei-original-gold-chain-black-dial-mens-watch-premium-stainless-steel-wrist-watch-with-date-time-display", tag:""}
+  ];
+
+  const STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9L22 9.6l-5.4 4.8L18.2 22 12 18.1 5.8 22l1.6-7.6L2 9.6l7.1-.7L12 2z"/></svg>';
+
+  function cardHTML(p, idx, prefix){
+    const id = prefix + idx;
+    return `
+    <div class="product-card reveal-card" data-idx="${id}">
+      <div class="product-media">
+        ${p.tag ? `<span class="badge-tag">${p.tag}</span>` : ''}
+        <button class="wishlist-btn" data-wish="${id}" aria-label="Add to wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.8 4c2-.3 3.8.7 4.9 2.3C11.8 4.7 13.6 3.7 15.6 4c3.6.5 5.3 4 3.8 7.7C16.9 16.4 12 21 12 21z"/></svg>
+        </button>
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <button class="quickview-btn" data-quick="${id}">Quick View</button>
+      </div>
+      <div class="product-info">
+        <div class="name">${p.name}</div>
+        <div class="spec">${p.spec}</div>
+        <div class="rating">${STAR}${STAR}${STAR}${STAR}${STAR}<span>Customer Rated</span></div>
+        <div class="price-row">
+          <span class="price">${p.price}</span>
+          <button class="add-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  const ALL = {};
+  document.getElementById('featuredGrid').innerHTML = PRODUCTS.map((p,i)=>{ ALL['f'+i]=p; return cardHTML(p,i,'f'); }).join('');
+  document.getElementById('bestsellerRow').innerHTML = BESTSELLERS.map((p,i)=>{ ALL['b'+i]=p; return cardHTML(p,i,'b'); }).join('');
+
+  // wishlist toggle
+  document.body.addEventListener('click', (e)=>{
+    const w = e.target.closest('[data-wish]');
+    if(w){ w.classList.toggle('active'); }
+    const q = e.target.closest('[data-quick]');
+    if(q){ openModal(ALL[q.dataset.quick]); }
+  });
+
+  // quick view modal
+  const overlay = document.getElementById('modalOverlay');
+  function openModal(p){
+    document.getElementById('modalImg').src = p.img;
+    document.getElementById('modalImg').alt = p.name;
+    document.getElementById('modalName').textContent = p.name;
+    document.getElementById('modalPrice').textContent = p.price;
+    document.getElementById('modalLink').href = p.url;
+    overlay.classList.add('open');
+  }
+  document.getElementById('modalClose').addEventListener('click', ()=> overlay.classList.remove('open'));
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.classList.remove('open'); });
+
+  // mobile menu
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', ()=> mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> mobileMenu.classList.remove('open')));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = null; });
+      if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  // scroll reveal
+  const revealTargets = document.querySelectorAll('.reveal, .product-card');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12});
+  revealTargets.forEach(el=> io.observe(el));
+</script>
+</body>
+</html>
